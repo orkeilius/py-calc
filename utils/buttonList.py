@@ -35,7 +35,7 @@ ButtonList = {
     "x²": TextButton("^","^","**"),
     ",": TextButton(",",",","."),
     "π": TextButton("π","π","math.pi "),
-    "e": TextButton("e","e","math.e "),
+    "e": TextButton("ℯ","ℯ","math.e "),
     "sin": TextButton("sin","sin(","math.sin("),
     "cos": TextButton("cos"," cos(","math.cos("),
     "tan": TextButton("tan"," tan(","math.tan("),

@@ -7,7 +7,7 @@ class Button :
     button : customtkinter.CTkButton
 
     def Onclick(self):
-        self.clickAction(entryRef)
+        self.clickAction(self.entryRef)
         
 
     def __init__(self,name:str,clickAction:callable):
