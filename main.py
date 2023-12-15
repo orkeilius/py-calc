@@ -4,11 +4,11 @@ from commande import *
 
 
 normal_grid = [
-            [ COM[0], COM[0]    , COM[0]    , COM["sqrt"] ],
-            [ COM[0], COM["sin"], COM["cos"], COM["+"] ],
-            [ COM[1], COM[2]    , COM[3]    , COM["-"] ],
-            [ COM[4], COM[5]    , COM[6]    , COM["/"] ],
-            [ COM[7], COM[8]    , COM[9]    , COM["*"] ],
+            [ COM[0], COM[0]    , COM[0]    , COM["+"] ],
+            [ COM[0], COM["sin"], COM["cos"], COM["-"] ],
+            [ COM[1], COM[2]    , COM[3]    , COM["/"] ],
+            [ COM[4], COM[5]    , COM[6]    , COM["*"] ],
+            [ COM[7], COM[8]    , COM[9]    , COM[","] ],
            ]
 
 MARGIN = 5
