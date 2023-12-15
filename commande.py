@@ -35,16 +35,19 @@ class InputCommande(Command) :
 
         Command.__init__(self,name,lambda list: self.textApply(text,list))
 
-    def Onclick(self,calcEntry,entry:customtkinter.CTkEntry):
-        print(self.text)
-        calcEntry += self.text
-
-        if "(" in self.text:
-            calcEntry+= ")"
+    def Onclick(self,entryWidget:customtkinter.CTkEntry):
+        pos = entryWidget.index(customtkinter.INSERT) 
+        entry = entryWidget.get()
         
-        return calcEntry
-
+        if "(" in self.text:
+            entry = entry[:pos] + self.text + ")" + entry[pos:]
+        else:
+            entry = entry[:pos] + self.text + entry[pos:]      
+        
+        entryWidget.delete(0,len(entryWidget.get()))
+        entryWidget.insert(0,entry)
     
+        entryWidget.icursor(pos + len(self.text)) 
 
 
 COM = {
@@ -66,7 +69,9 @@ COM = {
     "sin": InputCommande("sin","sin(","math.sin("),
     "cos": InputCommande("cos"," cos(","math.cos("),
     "tan": InputCommande("tan"," tan(","math.tan("),
+    "sqrt": InputCommande("√","√(","math.sqrt("),
 
     ")": InputCommande(")"),
 }
+
 

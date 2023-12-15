@@ -4,6 +4,7 @@ from commande import *
 
 
 normal_grid = [
+            [ COM[0], COM[0]    , COM[0]    , COM["sqrt"] ],
             [ COM[0], COM["sin"], COM["cos"], COM["+"] ],
             [ COM[1], COM[2]    , COM[3]    , COM["-"] ],
             [ COM[4], COM[5]    , COM[6]    , COM["/"] ],
@@ -11,33 +12,51 @@ normal_grid = [
            ]
 
 MARGIN = 5
-
+DEBUG = True
 
 def handleClick(elem : Command):
-    newEntry :str= elem.Onclick(entry.get(),entry)
+    newEntry :str= elem.Onclick(entryWidget)
 
-    entry.delete(0,len(entry.get()))
-    entry.insert(0,newEntry)
+def calc():
 
-    print("".join(newEntry))
-    print(transformEntry(entry.get()))
+    try:
+        entry = "".join(transformEntry(entryWidget.get()))
+        print(entry)
+        output = eval(entry)
+        print(output)
+        entryWidget.configure(placeholder_text="")
+        entryWidget.delete(0,len(entryWidget.get()))
+        entryWidget.insert(0,output)
+    except Exception as error:
+        print(error)
+        entryWidget.configure(placeholder_text=str(error))
+        entryWidget.delete(0,len(entryWidget.get())) 
+
 
 def setGrid(app, grid: list[list[InputCommande]]):
+
+    # set grid config
+    for col in range(len(grid[0])):
+        app.grid_columnconfigure(col, weight=1)
+    for row in range(len(grid) + 1):
+        app.grid_rowconfigure(row, weight=1)
+
+    # set button
     for row in range(len(grid)):
         for col in range(len(grid[0])):
             elem = normal_grid[row][col]
             button = elem.generateButton(app,handleClick)
-            button.grid(row=row + 1, column=col, padx=MARGIN, pady=MARGIN)
+            button.grid(row=row + 1, column=col, padx=MARGIN, pady=MARGIN, sticky=customtkinter.NSEW)
 
 def transformEntry(text):
     cutedString = []
-    alphabet = "azertyuiopqsdrfghjklmwxcvbn"
+    funcToken = "azertyuiopqsdrfghjklmwxcvbn√"
     funcName = ""
 
     # spiting elem
     for char in text:
         
-        if char in alphabet:
+        if char in funcToken:
             funcName += char
         
         elif char == "(":
@@ -49,7 +68,9 @@ def transformEntry(text):
                 raise ValueError("missing '(' after function")
             
             cutedString.append(char)
-    
+    if funcName != "":
+        raise ValueError("missing '(' after function")
+
     # transform token and check for invalid one
     output = []
     for token in cutedString:
@@ -68,12 +89,15 @@ def transformEntry(text):
 
 
 def app():
-    global entry
+    global entryWidget
     app = customtkinter.CTk()
-    app.geometry("400x150")
-    entry = customtkinter.CTkEntry(app)
-    entry.grid(row=0, column=0, padx=MARGIN, pady=MARGIN, columnspan=5,sticky=customtkinter.EW)
+    app.geometry("500x500")
+    entryWidget = customtkinter.CTkEntry(app)
+    entryWidget.grid(row=0, column=0, padx=MARGIN, pady=MARGIN, columnspan=3,sticky=customtkinter.NSEW)
+    entryWidget.focus()
 
+    submitWidjet = customtkinter.CTkButton(app,text="=",command=calc,fg_color="green")
+    submitWidjet.grid(row=0, column=3, padx=MARGIN, pady=MARGIN,sticky=customtkinter.NSEW)
     setGrid(app,normal_grid)
 
     app.mainloop()
