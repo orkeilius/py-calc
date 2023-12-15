@@ -4,15 +4,14 @@ from commande import *
 
 
 normal_grid = [
-            [ COM[0], COM[0]    , COM[0]    , COM["+"] ],
-            [ COM[0], COM["sin"], COM["cos"], COM["-"] ],
-            [ COM[1], COM[2]    , COM[3]    , COM["/"] ],
-            [ COM[4], COM[5]    , COM[6]    , COM["*"] ],
-            [ COM[7], COM[8]    , COM[9]    , COM[","] ],
+            [  "x²",  "√", "clr", "del" ],
+            [     7,    8,     9,    "%"],
+            [     4,    5,     6,    "/"],
+            [     1,    2,     3,    "*"],
+            [   ",",    0,   "-",    "+"],
            ]
 
 MARGIN = 5
-DEBUG = True
 
 def handleClick(elem : Command):
     newEntry :str= elem.Onclick(entryWidget)
@@ -42,7 +41,7 @@ def setGrid(app, grid: list[list[InputCommande]]):
     # set button
     for row in range(len(grid)):
         for col in range(len(grid[0])):
-            elem = normal_grid[row][col]
+            elem = CommandeList[normal_grid[row][col]]
             button = elem.generateButton(app,handleClick)
             button.grid(row=row + 2, column=col, padx=MARGIN, pady=MARGIN, sticky=customtkinter.NSEW)
 
@@ -73,7 +72,10 @@ def transformEntry(text):
     output = []
     for token in cutedString:
         found = False
-        for elem in COM.values():
+        for elem in CommandeList.values():
+            if type(elem) == Command:
+                continue
+            
             if elem.text == token:
                 output.append(elem.code)
                 found = True

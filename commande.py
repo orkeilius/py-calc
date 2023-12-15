@@ -2,13 +2,14 @@ import customtkinter
 
 class Command :
     name :str = ""
-    clickAction:str = ""
+    clickAction:callable = None
     button : customtkinter.CTkButton = None 
 
-    def Onclick(self):
-        pass
+    def Onclick(self,entryWidget:customtkinter.CTkEntry):
+        self.clickAction(entryWidget)
+        
 
-    def __init__(self,name:str,clickAction:str):
+    def __init__(self,name:str,clickAction:callable):
         self.name = name
         self.clickAction = clickAction
     
@@ -50,7 +51,22 @@ class InputCommande(Command) :
         entryWidget.icursor(pos + len(self.text)) 
 
 
-COM = {
+def delAction(entryWidget:customtkinter.CTkEntry):
+    pos = entryWidget.index(customtkinter.INSERT) 
+    entry = entryWidget.get()
+    
+    entryWidget.delete(0,len(entryWidget.get()))
+    entryWidget.insert(0,entry[:pos -1] + entry[pos:] ) 
+    entryWidget.icursor(pos -1) 
+    
+def clearAction(entryWidget:customtkinter.CTkEntry):   
+    entryWidget.delete(0,len(entryWidget.get()))
+
+
+
+CommandeList = {
+    "del": Command("del",delAction),
+    "clr": Command("clr", clearAction),
     1: InputCommande("1"),
     2: InputCommande("2"),
     3: InputCommande("3"),
@@ -65,12 +81,15 @@ COM = {
     "-": InputCommande("-"),
     "/": InputCommande("/"),
     "*": InputCommande("*"),
+    "%": InputCommande("%"),
     "x²": InputCommande("^","^","**"),
     ",": InputCommande(",",",","."),
+    "π": InputCommande("π","π","math.pi "),
+    "e": InputCommande("e","e","math.e "),
     "sin": InputCommande("sin","sin(","math.sin("),
     "cos": InputCommande("cos"," cos(","math.cos("),
     "tan": InputCommande("tan"," tan(","math.tan("),
-    "sqrt": InputCommande("√","√(","math.sqrt("),
+    "√": InputCommande("√","√(","math.sqrt("),
 
     ")": InputCommande(")"),
 }
