@@ -24,29 +24,27 @@ def calc():
         print(entry)
         output = eval(entry)
         print(output)
-        entryWidget.configure(placeholder_text="")
+        
         entryWidget.delete(0,len(entryWidget.get()))
-        entryWidget.insert(0,output)
+        resultWidjet.configure(text=output)
     except Exception as error:
         print(error)
-        entryWidget.configure(placeholder_text=str(error))
-        entryWidget.delete(0,len(entryWidget.get())) 
-
+        resultWidjet.configure(text=str(error))
 
 def setGrid(app, grid: list[list[InputCommande]]):
 
     # set grid config
     for col in range(len(grid[0])):
-        app.grid_columnconfigure(col, weight=1)
-    for row in range(len(grid) + 1):
-        app.grid_rowconfigure(row, weight=1)
+        app.grid_columnconfigure(col, weight=4)
+    for row in range(2,len(grid) + 2):
+        app.grid_rowconfigure(row, weight=4)
 
     # set button
     for row in range(len(grid)):
         for col in range(len(grid[0])):
             elem = normal_grid[row][col]
             button = elem.generateButton(app,handleClick)
-            button.grid(row=row + 1, column=col, padx=MARGIN, pady=MARGIN, sticky=customtkinter.NSEW)
+            button.grid(row=row + 2, column=col, padx=MARGIN, pady=MARGIN, sticky=customtkinter.NSEW)
 
 def transformEntry(text):
     cutedString = []
@@ -89,16 +87,24 @@ def transformEntry(text):
 
 
 def app():
-    global entryWidget
+    global entryWidget,resultWidjet
     app = customtkinter.CTk()
     app.geometry("500x500")
-    entryWidget = customtkinter.CTkEntry(app)
-    entryWidget.grid(row=0, column=0, padx=MARGIN, pady=MARGIN, columnspan=3,sticky=customtkinter.NSEW)
-    entryWidget.focus()
+
+    app.grid_rowconfigure(0, weight=1)
+    app.grid_rowconfigure(1, weight=3)
+
 
     submitWidjet = customtkinter.CTkButton(app,text="=",command=calc,fg_color="green")
-    submitWidjet.grid(row=0, column=3, padx=MARGIN, pady=MARGIN,sticky=customtkinter.NSEW)
+    entryWidget = customtkinter.CTkEntry(app)
+    resultWidjet = customtkinter.CTkLabel(app,text="eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+
+    submitWidjet.grid(row=1, column=3, padx=MARGIN, pady=MARGIN,sticky=customtkinter.NSEW)
+    entryWidget.grid(row=1, column=0, padx=MARGIN, pady=MARGIN, columnspan=3,sticky=customtkinter.NSEW)
+    resultWidjet.grid(row=0, column=0, padx=MARGIN, pady=MARGIN, columnspan=3, sticky=customtkinter.NSEW)
+    
     setGrid(app,normal_grid)
+    entryWidget.focus()
 
     app.mainloop()
 
