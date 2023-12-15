@@ -1,8 +1,8 @@
 import customtkinter, math
 from utils.buttonList import *
-from utils.grid import *
+from ui.ButtonGrid import *
 from typing import *
-from entity import *
+from ui import *
 
 def calc(entryWidget,resultWidjet):
 
@@ -47,7 +47,6 @@ def transformEntry(text):
     for token in cutedString:
         found = False
         for elem in ButtonList.values():
-            print(elem,type(elem))
             if type(elem) == Button.Button:
                 continue
             

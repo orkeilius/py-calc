@@ -1,4 +1,4 @@
-from entity.Button import Button
+from ui.Button import Button
 import customtkinter
 
 class TextButton(Button) :

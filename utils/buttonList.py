@@ -1,5 +1,5 @@
-from entity.TextButton import *
-from entity.Button import *
+from ui.TextButton import *
+from ui.Button import *
 import customtkinter
 
 

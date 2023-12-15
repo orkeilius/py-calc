@@ -1,6 +1,6 @@
 import customtkinter
 
-class Button :
+class Button(customtkinter.CTkButton) :
     name :str = ""
     clickAction:callable = None
     entryRef : customtkinter.CTkEntry 
@@ -8,13 +8,11 @@ class Button :
 
     def Onclick(self):
         self.clickAction(self.entryRef)
-        
 
     def __init__(self,name:str,clickAction:callable):
         self.name = name
         self.clickAction = clickAction
-    
-    def generateButton(self, app,entryRef:customtkinter.CTkEntry):
+
+    def initButton(self,frame,entryRef):
+        super().__init__(frame, text=self.name, command=self.Onclick)
         self.entryRef = entryRef
-        Button = customtkinter.CTkButton(app, text=self.name, command=self.Onclick)
-        return Button

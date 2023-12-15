@@ -1,28 +1,33 @@
 import customtkinter
 from utils.calculusParser import *
+from ui.ButtonGrid import ButtonGrid
 
+class app(customtkinter.CTk):
+    def __init__(self):
+        super().__init__()
+        self.title("py-calc")
+        self.geometry("500x500")
 
-def app():
-    global entryWidget,resultWidjet
-    app = customtkinter.CTk()
-    app.geometry("500x500")
+        self.grid_rowconfigure(0, weight=1)
+        self.grid_rowconfigure(1, weight=3)
+        self.grid_rowconfigure(2, weight=20)
+        
+        self.grid_columnconfigure(0, weight=1)
 
-    app.grid_rowconfigure(0, weight=1)
-    app.grid_rowconfigure(1, weight=3)
+        self.resultWidget = customtkinter.CTkLabel(self,text="result",anchor="sw")
+        self.resultWidget.grid(row=0, column=0, padx=5, pady=5, sticky=customtkinter.NSEW)
 
+        self.entryWidget = customtkinter.CTkEntry(self)
+        self.entryWidget.grid(row=1, column=0, padx=5, pady=5, columnspan=3,sticky=customtkinter.NSEW)
+        self.entryWidget.focus()
 
-    submitWidjet = customtkinter.CTkButton(app,text="=",command=lambda : calc(entryWidget,resultWidjet),fg_color="green")
-    entryWidget = customtkinter.CTkEntry(app)
-    resultWidjet = customtkinter.CTkLabel(app,text="result",anchor="sw")
+        self.submitWidget = customtkinter.CTkButton(self,text="=",command=lambda : calc(self.entryWidget,self.resultWidget),fg_color="green")
+        self.submitWidget.grid(row=1, column=3, padx=5, pady=5,columnspan=4,sticky=customtkinter.NSEW)
 
-    submitWidjet.grid(row=1, column=3, padx=5, pady=5,columnspan=4,sticky=customtkinter.NSEW)
-    entryWidget.grid(row=1, column=0, padx=5, pady=5, columnspan=3,sticky=customtkinter.NSEW)
-    resultWidjet.grid(row=0, column=0, padx=5, pady=5, columnspan=3, sticky=customtkinter.NSEW)
-    
-    setGrid(app,entryWidget,"basic")
-    entryWidget.focus()
+        self.gridWidget = ButtonGrid(self,self.entryWidget,"basic")
+        self.gridWidget.grid(row=2, column=0, padx=0, pady=0, columnspan=4, sticky=customtkinter.NSEW)
 
-    app.mainloop()
+        self.mainloop()
 
 
 
