@@ -1,21 +1,9 @@
 import customtkinter, math
+from utils.buttonList import *
+from utils.grid import *
 from typing import *
-from commande import *
+from entity import *
 
-
-normal_grid = [
-            [   "(",  ")", "clr", "del"],
-            [   "e",  "π",  "x²",   "√"],
-            [     7,    8,     9,   "%"],
-            [     4,    5,     6,   "/"],
-            [     1,    2,     3,   "*"],
-            [   ",",    0,   "-",   "+"],
-           ]
-
-MARGIN = 5
-
-def handleClick(elem : Command):
-    newEntry :str= elem.Onclick(entryWidget)
 
 def calc():
 
@@ -31,20 +19,6 @@ def calc():
         print(error)
         resultWidjet.configure(text=str(error),text_color="red")
 
-def setGrid(app, grid: list[list[InputCommande]]):
-
-    # set grid config
-    for col in range(len(grid[0])):
-        app.grid_columnconfigure(col, weight=4)
-    for row in range(2,len(grid) + 2):
-        app.grid_rowconfigure(row, weight=4)
-
-    # set button
-    for row in range(len(grid)):
-        for col in range(len(grid[0])):
-            elem = CommandeList[normal_grid[row][col]]
-            button = elem.generateButton(app,handleClick)
-            button.grid(row=row + 2, column=col, padx=MARGIN, pady=MARGIN, sticky=customtkinter.NSEW)
 
 def transformEntry(text):
     cutedString = []
@@ -73,8 +47,9 @@ def transformEntry(text):
     output = []
     for token in cutedString:
         found = False
-        for elem in CommandeList.values():
-            if type(elem) == Command:
+        for elem in ButtonList.values():
+            print(elem,type(elem))
+            if type(elem) == Button.Button:
                 continue
             
             if elem.text == token:
@@ -102,11 +77,11 @@ def app():
     entryWidget = customtkinter.CTkEntry(app)
     resultWidjet = customtkinter.CTkLabel(app,text="result",anchor="sw")
 
-    submitWidjet.grid(row=1, column=3, padx=MARGIN, pady=MARGIN,columnspan=4,sticky=customtkinter.NSEW)
-    entryWidget.grid(row=1, column=0, padx=MARGIN, pady=MARGIN, columnspan=3,sticky=customtkinter.NSEW)
-    resultWidjet.grid(row=0, column=0, padx=MARGIN, pady=MARGIN, columnspan=3, sticky=customtkinter.NSEW)
+    submitWidjet.grid(row=1, column=3, padx=5, pady=5,columnspan=4,sticky=customtkinter.NSEW)
+    entryWidget.grid(row=1, column=0, padx=5, pady=5, columnspan=3,sticky=customtkinter.NSEW)
+    resultWidjet.grid(row=0, column=0, padx=5, pady=5, columnspan=3, sticky=customtkinter.NSEW)
     
-    setGrid(app,normal_grid)
+    setGrid(app,entryWidget,"basic")
     entryWidget.focus()
 
     app.mainloop()
