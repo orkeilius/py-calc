@@ -81,7 +81,7 @@ CommandeList = {
     "-": InputCommande("-"),
     "/": InputCommande("/"),
     "*": InputCommande("*"),
-    "%": InputCommande("%"),
+    "%": InputCommande("%","%","/100"),
     "x²": InputCommande("^","^","**"),
     ",": InputCommande(",",",","."),
     "π": InputCommande("π","π","math.pi "),
@@ -90,7 +90,7 @@ CommandeList = {
     "cos": InputCommande("cos"," cos(","math.cos("),
     "tan": InputCommande("tan"," tan(","math.tan("),
     "√": InputCommande("√","√(","math.sqrt("),
-
+    "(": InputCommande("("),
     ")": InputCommande(")"),
 }
 
