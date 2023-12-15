@@ -26,10 +26,10 @@ def calc():
         print(output)
         
         entryWidget.delete(0,len(entryWidget.get()))
-        resultWidjet.configure(text=output)
+        resultWidjet.configure(text=output,text_color="white")
     except Exception as error:
         print(error)
-        resultWidjet.configure(text=str(error))
+        resultWidjet.configure(text=str(error),text_color="red")
 
 def setGrid(app, grid: list[list[InputCommande]]):
 
@@ -97,9 +97,9 @@ def app():
 
     submitWidjet = customtkinter.CTkButton(app,text="=",command=calc,fg_color="green")
     entryWidget = customtkinter.CTkEntry(app)
-    resultWidjet = customtkinter.CTkLabel(app,text="eeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee")
+    resultWidjet = customtkinter.CTkLabel(app,text="result",anchor="sw")
 
-    submitWidjet.grid(row=1, column=3, padx=MARGIN, pady=MARGIN,sticky=customtkinter.NSEW)
+    submitWidjet.grid(row=1, column=3, padx=MARGIN, pady=MARGIN,columnspan=4,sticky=customtkinter.NSEW)
     entryWidget.grid(row=1, column=0, padx=MARGIN, pady=MARGIN, columnspan=3,sticky=customtkinter.NSEW)
     resultWidjet.grid(row=0, column=0, padx=MARGIN, pady=MARGIN, columnspan=3, sticky=customtkinter.NSEW)
     
