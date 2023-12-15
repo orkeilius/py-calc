@@ -20,15 +20,15 @@ class ButtonGrid(customtkinter.CTkFrame):
 
         # set grid config
         for col in range(len(grid[0])):
-            self.grid_columnconfigure(col, weight=4)
-        for row in range(2,len(grid) + 2):
-            self.grid_rowconfigure(row, weight=4)
+            self.grid_columnconfigure(col, weight=1)
+        for row in range(len(grid)):
+            self.grid_rowconfigure(row, weight=1)
 
         # set Button
         for row in range(len(grid)):
             for col in range(len(grid[0])):
                 elem = ButtonList[grid[row][col]]
                 elem.initButton(self,entryRef)
-                elem.grid(row=row + 2, column=col, padx=5, pady=5, sticky=customtkinter.NSEW)
+                elem.grid(row=row, column=col, padx=5, pady=5, sticky=customtkinter.NSEW)
 
 
