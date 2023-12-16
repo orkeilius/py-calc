@@ -3,7 +3,7 @@ from ui.Button import *
 import customtkinter
 
 
-def delAction(entryWidget:customtkinter.CTkEntry):
+def delAction(self: Button, entryWidget:customtkinter.CTkEntry):
     pos = entryWidget.index(customtkinter.INSERT) 
     entry = entryWidget.get()
     
@@ -11,12 +11,17 @@ def delAction(entryWidget:customtkinter.CTkEntry):
     entryWidget.insert(0,entry[:pos -1] + entry[pos:] ) 
     entryWidget.icursor(pos -1) 
     
-def clearAction(entryWidget:customtkinter.CTkEntry):   
+def clearAction(self: Button, entryWidget:customtkinter.CTkEntry):   
     entryWidget.delete(0,len(entryWidget.get()))
+
+def secondAction(self: Button, entryWidget:customtkinter.CTkEntry):   
+    self.frame.switchSecond()
+
 
 ButtonList = {
     "del": Button("del",delAction),
-    "clr": Button("clr", clearAction),
+    "clr": Button("clr",clearAction),
+    "2de": Button("2de",secondAction),
     1: TextButton("1"),
     2: TextButton("2"),
     3: TextButton("3"),
@@ -34,6 +39,7 @@ ButtonList = {
     "%": TextButton("%","%","/100 "),
     "xʸ": TextButton("xʸ","^","**"),
     "x²": TextButton("x²","^2"),
+    "x³": TextButton("x³","^3"),
     "10ʸ": TextButton("10ʸ","10^"),
     ",": TextButton(",",",","."),
     "π": TextButton("π","π","math.pi "),
@@ -41,6 +47,9 @@ ButtonList = {
     "sin": TextButton("sin","sin(","math.sin("),
     "cos": TextButton("cos","cos(","math.cos("),
     "tan": TextButton("tan","tan(","math.tan("),
+    "asin": TextButton("asin","asin(","math.asin("),
+    "acos": TextButton("acos","acos(","math.acos("),
+    "atan": TextButton("atan","atan(","math.atan("),
     "log": TextButton("log","log(","math.log10("),
     "ln": TextButton("ln","ln(","math.log("),
     "√": TextButton("√","√(","math.sqrt("),

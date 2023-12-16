@@ -7,12 +7,13 @@ class Button(customtkinter.CTkButton) :
     button : customtkinter.CTkButton
 
     def Onclick(self):
-        self.clickAction(self.entryRef)
+        self.clickAction(self,self.entryRef)
 
     def __init__(self,name:str,clickAction:callable):
         self.name = name
         self.clickAction = clickAction
 
     def initButton(self,frame,entryRef):
-        super().__init__(frame, text=self.name, command=self.Onclick)
+        super().__init__(frame, text=self.name, font=("",20), command=self.Onclick)
         self.entryRef = entryRef
+        self.frame = frame

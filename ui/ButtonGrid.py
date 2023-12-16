@@ -12,27 +12,45 @@ grids = { "basic" :
             [     1,    2,     3,   "*"],
             [   ",",    0,   "-",   "+"],
         ],
-    "scientific":
+    "scientific1":
         [
             [ "2de",   "(",  ")", "clr", "del"],
             [ "sin", "cos","tan", "|x|", "mod"],
-            [  "xʸ",   "e",  "π",   "!",   "√"],
-            [  "x²",     7,    8,     9,   "%"],
+            [  "x²",   "e",  "π",   "!",   "√"],
+            [  "xʸ",     7,    8,     9,   "%"],
             [ "10ʸ",     4,    5,     6,   "/"],
             [ "log",     1,    2,     3,   "*"],
             [  "ln",   ",",    0,   "-",   "+"],
-        ]
-
+        ],
+    "scientific0":
+        [
+            [ "2de",   "(",   ")", "clr", "del"],
+            ["asin","acos","atan", "|x|", "mod"],
+            [  "x³",   "e",   "π",   "!",   "√"],
+            [  "xʸ",     7,     8,     9,   "%"],
+            [ "10ʸ",     4,     5,     6,   "/"],
+            [ "log",     1,     2,     3,   "*"],
+            [  "ln",   ",",     0,   "-",   "+"],
+        ],    
 
 
 }
 class ButtonGrid(customtkinter.CTkFrame):
     
+    second = 1
+    entryRef : customtkinter.CTkEntry
     
     def __init__(self, parent, entryRef:customtkinter.CTkEntry, mode: str = "basic"):
         super().__init__(parent)
-        grid = grids[mode]
+        self.entryRef = entryRef
+        self.mode = mode
+        
+        if mode == "basic":
+            self.drawGrid(grids[mode])
+        else:
+            self.drawGrid(grids[mode + str(self.second)])
 
+    def drawGrid(self,grid):
         # set grid config
         for col in range(len(grid[0])):
             self.grid_columnconfigure(col, weight=1)
@@ -47,6 +65,9 @@ class ButtonGrid(customtkinter.CTkFrame):
                     continue
                 
                 elem = ButtonList[grid[row][col]]
-                elem.initButton(self,entryRef)
+                elem.initButton(self,self.entryRef)
                 elem.grid(row=row, column=col, padx=5, pady=5, sticky=customtkinter.NSEW)
         
+    def switchSecond(self):
+        self.second = (self.second + 1) % 2
+        self.drawGrid(grids[self.mode + str(self.second)])
