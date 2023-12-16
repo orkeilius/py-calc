@@ -21,7 +21,7 @@ def calc(entryWidget,resultWidjet):
 
 def transformEntry(text):
     cutedString = []
-    funcToken = "azertyuiopqsdrfghjklmwxcvbn√"
+    funcToken = "azertyuiopqsdrfghjklmwxcvbn√!"
     funcName = ""
 
     # spiting elem
@@ -29,8 +29,10 @@ def transformEntry(text):
         
         if char in funcToken:
             funcName += char
+        elif char == " " and funcName == "":
+            continue
         
-        elif char in "( ":
+        elif char in "( ":      
             cutedString.append(funcName+char)
             funcName = ""
             
@@ -44,6 +46,7 @@ def transformEntry(text):
 
     # transform token and check for invalid one
     output = []
+    print(cutedString)
     for token in cutedString:
         found = False
         for elem in ButtonList.values():
