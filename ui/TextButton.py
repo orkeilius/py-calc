@@ -5,7 +5,7 @@ class TextButton(Button) :
     text :str = ""
     code :str = ""
 
-    def __init__(self,name:str, text:str=None, code:str=None):
+    def __init__(self,name:str, text:str=None, code:str=None,color="#3a7ebf"):
         
         if text == None:
             self.text = name
@@ -17,7 +17,7 @@ class TextButton(Button) :
         else:
             self.code = code
 
-        Button.__init__(self,name,lambda list: self.textApply(text,list))
+        Button.__init__(self,name,lambda list: self.textApply(text,list),color)
 
     def Onclick(self):
         pos = self.entryRef.index(customtkinter.INSERT) 
