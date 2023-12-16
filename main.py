@@ -1,6 +1,7 @@
 import customtkinter
 from utils.calculusParser import *
 from ui.ButtonGrid import ButtonGrid
+from ui.SwitchButton import SwitchButton
 
 class app(customtkinter.CTk):
     def __init__(self):
@@ -16,20 +17,26 @@ class app(customtkinter.CTk):
 
         self.resultWidget = customtkinter.CTkLabel(self,text="result",anchor="sw")
         self.resultWidget.grid(row=0, column=0, padx=5, pady=5, sticky=customtkinter.NSEW)
+        
+        self.switchWidget = SwitchButton(self)
+        self.switchWidget.grid(row=0, column=5, padx=5, pady=5, sticky=customtkinter.NSEW)
+
 
         self.entryWidget = customtkinter.CTkEntry(self)
         self.entryWidget.grid(row=1, column=0, padx=5, pady=5, columnspan=3,sticky=customtkinter.NSEW)
         self.entryWidget.focus()
 
         self.submitWidget = customtkinter.CTkButton(self,text="=",command=lambda : calc(self.entryWidget,self.resultWidget),fg_color="green")
-        self.submitWidget.grid(row=1, column=3, padx=5, pady=5,columnspan=4,sticky=customtkinter.NSEW)
+        self.submitWidget.grid(row=1, column=3, padx=5, pady=5,columnspan=5,sticky=customtkinter.NSEW)
 
         self.gridWidget = ButtonGrid(self,self.entryWidget,"basic")
-        self.gridWidget.grid(row=2, column=0, padx=0, pady=0, columnspan=4, sticky=customtkinter.NSEW)
+        self.gridWidget.grid(row=2, column=0, padx=0, pady=0, columnspan=7, sticky=customtkinter.NSEW)
 
         self.mainloop()
 
-
+    def updateGrid(self,mode:str):
+        self.gridWidget = ButtonGrid(self,self.entryWidget,mode)
+        self.gridWidget.grid(row=2, column=0, padx=0, pady=0, columnspan=7, sticky=customtkinter.NSEW)
 
 if __name__ == '__main__':
     app()
