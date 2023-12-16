@@ -30,8 +30,8 @@ def transformEntry(text):
         if char in funcToken:
             funcName += char
         
-        elif char == "(":
-            cutedString.append(funcName+"(")
+        elif char in "( ":
+            cutedString.append(funcName+char)
             funcName = ""
             
         else:
@@ -56,5 +56,5 @@ def transformEntry(text):
                 break
         
         if not found:
-            raise ValueError(f'unknow token "{elem}" ')
+            raise ValueError(f'unknow token "{token}" ')
     return output
