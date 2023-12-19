@@ -44,7 +44,7 @@ ButtonList = {
     "x²": TextButton("x²","^2"),
     "x³": TextButton("x³","^3"),
     "10ʸ": TextButton("10ʸ","10^"),
-    ",": TextButton(",",",","."),
+    ",": TextButton(",","."),
     "π": TextButton("π","π","math.pi "),
     "e": TextButton("ℯ","ℯ","math.e "),
     "sin": TextButton("sin","sin(","math.sin("),
