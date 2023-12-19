@@ -2,6 +2,7 @@ import customtkinter
 from utils.calculusParser import *
 from ui.ButtonGrid import ButtonGrid
 from ui.SwitchButton import SwitchButton
+from ui.HistoryPanel import HistoryPanel
 
 class app(customtkinter.CTk):
     """Main class for the app
@@ -25,12 +26,16 @@ class app(customtkinter.CTk):
         self.switchWidget = SwitchButton(self)
         self.switchWidget.grid(row=0, column=5, padx=5, pady=5, sticky=customtkinter.NSEW)
 
+        
 
         self.entryWidget = customtkinter.CTkEntry(self)
         self.entryWidget.grid(row=1, column=0, padx=5, pady=5, columnspan=3,sticky=customtkinter.NSEW)
         self.entryWidget.focus()
 
-        self.submitWidget = customtkinter.CTkButton(self,text="=",command=lambda : calc(self.entryWidget,self.resultWidget),fg_color="green")
+        self.historyWidget = HistoryPanel(self,self.entryWidget)
+        self.historyWidget.grid(row=0, column=9, rowspan=4, sticky=customtkinter.NSEW)
+        
+        self.submitWidget = customtkinter.CTkButton(self,text="=",command=lambda : calc(self.entryWidget,self.resultWidget,self.historyWidget),fg_color="green")
         self.submitWidget.grid(row=1, column=3, padx=5, pady=5,columnspan=5,sticky=customtkinter.NSEW)
 
         self.gridWidget = ButtonGrid(self,self.entryWidget,"basic")

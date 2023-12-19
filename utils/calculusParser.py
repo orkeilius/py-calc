@@ -4,7 +4,7 @@ from ui.ButtonGrid import *
 from typing import *
 from ui import *
 
-def calc(entryWidget,resultWidjet):
+def calc(entryWidget,resultWidjet,historyWidget):
     """ handle calcul validation and handle error
 
     Args:
@@ -14,16 +14,18 @@ def calc(entryWidget,resultWidjet):
 
     try:
         entry = "".join(transformEntry(entryWidget.get()))
-        print(entry)
         output = eval(entry)
-        print(output)
-        
-        entryWidget.delete(0,len(entryWidget.get()))
-        resultWidjet.configure(text=output,text_color="white")
         
     except Exception as error:
         print(error)
         resultWidjet.configure(text=str(error),text_color="red")
+        return
+    
+    historyWidget.addHistoryItem([entryWidget.get(),output])
+        
+    entryWidget.delete(0,len(entryWidget.get()))
+    resultWidjet.configure(text=output,text_color="white")
+        
 
 
 def transformEntry(text):
