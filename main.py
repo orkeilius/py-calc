@@ -41,6 +41,7 @@ class app(customtkinter.CTk):
         self.gridWidget = ButtonGrid(self,self.entryWidget,"basic")
         self.gridWidget.grid(row=2, column=0, padx=0, pady=0, columnspan=7, sticky=customtkinter.NSEW)
 
+        self.bind('<Return>', lambda x: calc(self.entryWidget,self.resultWidget,self.historyWidget))
         self.mainloop()
 
     def updateGrid(self,mode:str):
