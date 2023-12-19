@@ -2,6 +2,8 @@ from ui.TextButton import *
 from ui.Button import *
 import customtkinter
 
+"""file listing button and storing button's custom functions
+ """
 
 def delAction(self: Button, entryWidget:customtkinter.CTkEntry):
     pos = entryWidget.index(customtkinter.INSERT) 
@@ -18,7 +20,8 @@ def secondAction(self: Button, entryWidget:customtkinter.CTkEntry):
     self.frame.switchSecond()
 
 
-ButtonList = {
+# list of usable button
+ButtonList = {    
     "del": Button("del",delAction,color="red"),
     "clr": Button("clr",clearAction),
     "2de": Button("2de",secondAction,color="#ffb703"),

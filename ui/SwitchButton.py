@@ -3,6 +3,8 @@ import customtkinter
 modes = ["basic","scientific"]
 
 class SwitchButton(customtkinter.CTkButton):
+    """button to switch between basic/scientific
+    """
     
     mode = 0
     

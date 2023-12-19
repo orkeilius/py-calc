@@ -4,6 +4,10 @@ from ui.ButtonGrid import ButtonGrid
 from ui.SwitchButton import SwitchButton
 
 class app(customtkinter.CTk):
+    """Main class for the app
+    
+    """
+    
     def __init__(self):
         super().__init__()
         self.title("py-calc")
@@ -35,6 +39,11 @@ class app(customtkinter.CTk):
         self.mainloop()
 
     def updateGrid(self,mode:str):
+        """ handeler for the switch button
+
+        Args:
+            mode (str): mode to send to grid widget
+        """
         self.gridWidget = ButtonGrid(self,self.entryWidget,mode)
         self.gridWidget.grid(row=2, column=0, padx=0, pady=0, columnspan=7, sticky=customtkinter.NSEW)
 

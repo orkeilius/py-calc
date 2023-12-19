@@ -3,6 +3,8 @@ from ui.TextButton import *
 from ui.Button import *
 import customtkinter
 
+
+# store button position on grid
 grids = { "basic" :
         [
             [   "(",  ")", "clr", "del"],
@@ -12,7 +14,7 @@ grids = { "basic" :
             [     1,    2,     3,   "*"],
             [   ",",    0,   "-",   "+"],
         ],
-    "scientific1":
+    "scientific1": 
         [
             [ "2de",   "(",  ")", "clr", "del"],
             [ "sin", "cos","tan", "|x|", "mod"],
@@ -22,7 +24,7 @@ grids = { "basic" :
             [ "log",     1,    2,     3,   "*"],
             [  "ln",   ",",    0,   "-",   "+"],
         ],
-    "scientific0":
+    "scientific0": # scientific 2de
         [
             [ "2de",   "(",   ")", "clr", "del"],
             ["asin","acos","atan", "|x|", "mod"],
@@ -36,8 +38,12 @@ grids = { "basic" :
 
 }
 class ButtonGrid(customtkinter.CTkFrame):
+    """ frame who handle button grid
+    """
+    
     
     second = 1
+    mode: str
     entryRef : customtkinter.CTkEntry
     
     def __init__(self, parent, entryRef:customtkinter.CTkEntry, mode: str = "basic"):
@@ -51,6 +57,12 @@ class ButtonGrid(customtkinter.CTkFrame):
             self.drawGrid(grids[mode + str(self.second)])
 
     def drawGrid(self,grid):
+        """ draw the given grid
+
+        Args:
+            grid (_type_): grid from grids variable
+        """
+        
         # set grid config
         for col in range(len(grid[0])):
             self.grid_columnconfigure(col, weight=1)
@@ -69,5 +81,7 @@ class ButtonGrid(customtkinter.CTkFrame):
                 elem.grid(row=row, column=col, padx=5, pady=5, sticky=customtkinter.NSEW)
         
     def switchSecond(self):
+        """ handeler to switch mode and redraw grid
+        """
         self.second = (self.second + 1) % 2
         self.drawGrid(grids[self.mode + str(self.second)])
