@@ -26,8 +26,6 @@ class app(customtkinter.CTk):
         self.switchWidget = SwitchButton(self)
         self.switchWidget.grid(row=0, column=5, padx=5, pady=5, sticky=customtkinter.NSEW)
 
-        
-
         self.entryWidget = customtkinter.CTkEntry(self)
         self.entryWidget.grid(row=1, column=0, padx=5, pady=5, columnspan=3,sticky=customtkinter.NSEW)
         self.entryWidget.focus()
