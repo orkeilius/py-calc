@@ -12,7 +12,7 @@ class app(customtkinter.CTk):
     def __init__(self):
         super().__init__()
         self.title("py-calc")
-        self.geometry("500x500")
+        self.geometry("700x500")
 
         self.grid_rowconfigure(0, weight=1)
         self.grid_rowconfigure(1, weight=3)
