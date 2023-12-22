@@ -1,42 +1,11 @@
 from utils.buttonList import ButtonList
+from utils.gridsData import grids
 from ui.TextButton import *
 from ui.Button import *
 import customtkinter
 
-
 # store button position on grid
-grids = { "basic" :
-        [
-            [   "(",  ")", "clr", "del"],
-            [   "e",  "π",  "x²",   "√"],
-            [     7,    8,     9,   "%"],
-            [     4,    5,     6,   "/"],
-            [     1,    2,     3,   "*"],
-            [   ",",    0,   "-",   "+"],
-        ],
-    "scientific1": 
-        [
-            [ "2de",   "(",  ")", "clr", "del"],
-            [ "sin", "cos","tan", "|x|", "mod"],
-            [  "x²",   "e",  "π",   "!",   "√"],
-            [  "xʸ",     7,    8,     9,   "%"],
-            [ "10ʸ",     4,    5,     6,   "/"],
-            [ "log",     1,    2,     3,   "*"],
-            [  "ln",   ",",    0,   "-",   "+"],
-        ],
-    "scientific0": # scientific 2de
-        [
-            [ "2de",   "(",   ")", "clr", "del"],
-            ["asin","acos","atan", "|x|", "mod"],
-            [  "x³",   "e",   "π",   "!",   "√"],
-            [  "xʸ",     7,     8,     9,   "%"],
-            [ "10ʸ",     4,     5,     6,   "/"],
-            [ "log",     1,     2,     3,   "*"],
-            [  "ln",   ",",     0,   "-",   "+"],
-        ],    
 
-
-}
 class ButtonGrid(customtkinter.CTkFrame):
     """ frame who handle button grid
     """
