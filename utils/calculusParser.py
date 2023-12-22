@@ -19,6 +19,7 @@ def calc(entryWidget,resultWidjet,historyWidget):
         # use scientific notation if too long
         if len(str(output)) > 12 :
             output = '%E' % output
+            output = output.replace("E+00", "...")
         
     except Exception as error:
         print(error)
