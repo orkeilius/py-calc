@@ -20,7 +20,7 @@ class app(customtkinter.CTk):
         
         self.grid_columnconfigure(0, weight=1)
 
-        self.resultWidget = customtkinter.CTkLabel(self,text="result",anchor="sw")
+        self.resultWidget = customtkinter.CTkLabel(self,text="result",anchor="sw",font=("",20))
         self.resultWidget.grid(row=0, column=0, padx=5, pady=5, sticky=customtkinter.NSEW)
         
         self.switchWidget = SwitchButton(self)
