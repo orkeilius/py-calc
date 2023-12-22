@@ -16,10 +16,9 @@ class HistoryPanel(customtkinter.CTkScrollableFrame):
         super().__init__(parent)
         self.entryRef = entryRef
         self.grid_columnconfigure(0, weight=1)
-        self.grid_columnconfigure(1, weight=1)
         
         self.title = customtkinter.CTkLabel(self,text="history",font=("",20))
-        self.title.grid(row=0,columnspan=2,sticky=customtkinter.NSEW)
+        self.title.grid(row=0,sticky=customtkinter.NSEW)
         
         self.draw()
         
@@ -32,17 +31,18 @@ class HistoryPanel(customtkinter.CTkScrollableFrame):
         for i in range(len(self.historyButton),len(self.history)):
             
             if i % 2 == 0:
-                elem = TextButton(str(self.history[i]),color="grey")
-            else:
                 elem = TextButton(str(self.history[i]))
+                elem.initButton(self,self.entryRef)
+                elem.configure(font=("",14))
+            else:
+                elem = customtkinter.CTkLabel(self,text=str(self.history[i]))
             
-            elem.initButton(self,self.entryRef)
             self.historyButton.insert(0,elem)
         
         # place button
         
         for i in range(len(self.historyButton)):
-            self.historyButton[i].grid(row=i+2,column=i%2,sticky=customtkinter.NSEW) 
+            self.historyButton[i].grid(row=i+2,column=0,sticky=customtkinter.NSEW) 
         
         
             
