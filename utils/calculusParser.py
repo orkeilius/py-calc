@@ -16,6 +16,10 @@ def calc(entryWidget,resultWidjet,historyWidget):
         entry = "".join(transformEntry(entryWidget.get()))
         output = eval(entry)
         
+        # use scientific notation if too long
+        if len(str(output)) > 12 :
+            output = '%E' % output
+        
     except Exception as error:
         print(error)
         resultWidjet.configure(text=str(error),text_color="red")
@@ -52,17 +56,18 @@ def transformEntry(text):
         elif char == " " and funcName == "":
             continue
         
-        elif char in "( ":      
+        elif char in "(":      
             cutedString.append(funcName+char)
             funcName = ""
             
         else:
             if funcName != "":
-                raise ValueError("missing '(' after function")
+                cutedString.append(funcName)
+                funcName = ""
             
             cutedString.append(char)
     if funcName != "":
-        raise ValueError("missing '(' after function")
+        raise ValueError("missing value after function")
 
     # transform token and check for invalid one
     output = []

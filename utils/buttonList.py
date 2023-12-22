@@ -57,8 +57,9 @@ ButtonList = {
     "ln": TextButton("ln","ln(","math.log("),
     "√": TextButton("√","√(","math.sqrt("),
     "|x|": TextButton("|x|","abs("),
-    "mod": TextButton("mod","mod ","%"), 
+    "mod": TextButton("mod","mod","%"), 
     "!": TextButton("!","!(","math.factorial("),
     "(": TextButton("("),
     ")": TextButton(")"),
+    "e+":TextButton("E")
 }
