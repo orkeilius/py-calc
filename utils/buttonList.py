@@ -23,7 +23,7 @@ def secondAction(self: Button, entryWidget:customtkinter.CTkEntry):
 # list of usable button
 ButtonList = {    
     "del": Button("del",delAction,color="red"),
-    "clr": Button("clr",clearAction),
+    "clr": Button("clear",clearAction,color="grey"),
     "2de": Button("2de",secondAction,color="#ffb703"),
     1: TextButton("1"),
     2: TextButton("2"),
