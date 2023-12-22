@@ -4,46 +4,75 @@ from ui.ButtonGrid import *
 from typing import *
 from ui import *
 
-def calc(entryWidget,resultWidjet):
+def calc(entryWidget,resultWidjet,historyWidget):
+    """ handle calcul validation and handle error
+
+    Args:
+        entryWidget (_type_): entry widget for input
+        resultWidjet (_type_): label widget for output
+    """
 
     try:
         entry = "".join(transformEntry(entryWidget.get()))
-        print(entry)
         output = eval(entry)
-        print(output)
         
-        entryWidget.delete(0,len(entryWidget.get()))
-        resultWidjet.configure(text=output,text_color="white")
+        # use scientific notation if too long
+        if len(str(output)) > 12 :
+            output = '%E' % output
+            output = output.replace("E+00", "...")
+        
     except Exception as error:
         print(error)
         resultWidjet.configure(text=str(error),text_color="red")
+        return
+    
+    historyWidget.addHistoryItem([entryWidget.get(),output])
+        
+    entryWidget.delete(0,len(entryWidget.get()))
+    resultWidjet.configure(text=output,text_color="white")
+        
 
 
 def transformEntry(text):
+    """ transform and sanitize input for eval()
+
+    Args:
+        text (_type_): input
+
+    Raises:
+        ValueError: invalid input to get handled by the calc()
+
+    Returns:
+        _type_: output
+    """
     cutedString = []
-    funcToken = "azertyuiopqsdrfghjklmwxcvbn√"
+    funcToken = "azertyuiopqsdrfghjklmwxcvbn√!"
     funcName = ""
 
-    # spiting elem
+    # spiting elem in token
     for char in text:
         
         if char in funcToken:
             funcName += char
+        elif char == " " and funcName == "":
+            continue
         
-        elif char == "(":
-            cutedString.append(funcName+"(")
+        elif char in "(":      
+            cutedString.append(funcName+char)
             funcName = ""
             
         else:
             if funcName != "":
-                raise ValueError("missing '(' after function")
+                cutedString.append(funcName)
+                funcName = ""
             
             cutedString.append(char)
     if funcName != "":
-        raise ValueError("missing '(' after function")
+        raise ValueError("missing value after function")
 
     # transform token and check for invalid one
     output = []
+    print(cutedString)
     for token in cutedString:
         found = False
         for elem in ButtonList.values():
@@ -56,5 +85,6 @@ def transformEntry(text):
                 break
         
         if not found:
-            raise ValueError(f'unknow token "{elem}" ')
+            raise ValueError(f'unknow token "{token}" ')
+    
     return output
